@@ -108,7 +108,7 @@ var map = {
 	},{
 		"id": 22,
 		"adjacent": [21,23],
-		"coordinates": [1157,653],
+		"coordinates": [1157,633],
 		"player": 0
 	},{
 		"id": 23,
