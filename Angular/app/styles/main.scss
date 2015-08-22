@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+}
+
+#hud {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+}
+#board {
+  z-index: 1;
+  position: relative;
+  background: url("../../images/washington.png") no-repeat center;
+  width: 1400px;
+  height: 1259px;
+}
+.empty-space, .player-one-space, .player-two-space {
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+  position: absolute;
+  top: 631px;
+  left: 178px;
+}
+.player-one-space {
+  background: url("../../images/green-monster-small.png") no-repeat center;
+}
+.player-two-space {
+  background: url("../../images/blue-monster-small.png") no-repeat center;
+}
+.pointer {
+  cursor: pointer;
+}

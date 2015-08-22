@@ -1,0 +1,11 @@
+<div id="hud">
+  <a ng-click="startGame()" href="#/" ng-if="!gameInProgress">New Game</a>
+  <div ng-if="gameInProgress">Player {{currentPlayer}}'s turn</div>
+</div>
+<div id="board">
+<!-- won't want to show empty spaces unless they're clickable -->
+  <div class="empty-space" ng-repeat="space in emptySpaces" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }">0</div>
+  <div class="player-one-space" ng-class="(currentPlayer === 1) ? 'pointer' : ''" ng-repeat="space in playerOneSpaces" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }">1</div>
+  <div class="player-two-space" ng-class="(currentPlayer === 2) ? 'pointer' : ''" ng-repeat="space in playerTwoSpaces" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }">2</div>
+</div>
+
