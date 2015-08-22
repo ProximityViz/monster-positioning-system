@@ -44,6 +44,9 @@ angular.module('morningtonCrescentApp')
   	};
 
     $scope.grabMonster = function(space) {
+      var audio = new Audio('../sounds/pick-up-piece.wav');
+      audio.play();
+
       $scope.legalMoves = [];
       grabbedMonster = space;
       var playerGoal = $scope.currentPlayer === 1 ? 'p1goal' : 'p2goal';
@@ -63,12 +66,16 @@ angular.module('morningtonCrescentApp')
     };
 
     $scope.moveMonster = function(space) {
+      var audio = new Audio('../sounds/place-piece.wav');
+      audio.play();
       // maybe double-check that move is valid?
 
       // push monster to playerOneMonsters or playerTwoMonsters
       // also check for goal
       if ($scope.currentPlayer === 1) {
         if (space.player == 'p1goal') {
+          var audio = new Audio('../sounds/portal.wav');
+          audio.play();
           console.log("score");
           GameFactory.playerScored(space);
         } else {
@@ -76,6 +83,8 @@ angular.module('morningtonCrescentApp')
         }
       } else if ($scope.currentPlayer === 2) {
         if (space.player == 'p2goal') {
+          var audio = new Audio('../sounds/portal.wav');
+          audio.play();
           console.log("score");
           GameFactory.playerScored(space);
         } else {
