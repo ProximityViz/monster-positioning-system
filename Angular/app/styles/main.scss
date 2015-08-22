@@ -17,7 +17,7 @@ body {
   width: 1400px;
   height: 1259px;
 }
-.empty-space, .legal-space, .player-one-space, .player-two-space {
+.empty-space, .legal-space, .player-one-monster, .player-two-monster, .player-one-goal, .player-two-goal, .movable {
   width: 40px;
   height: 40px;
   z-index: 10;
@@ -30,12 +30,18 @@ body {
   border-radius: 20px;
   opacity: 0.8;
 }
-.player-one-space {
+.player-one-monster, .player-one-movable {
   background: url("../../images/green-monster-small.png") no-repeat center;
 }
-.player-two-space {
+.player-two-monster, .player-two-movable {
   background: url("../../images/blue-monster-small.png") no-repeat center;
 }
 .pointer {
   cursor: pointer;
+}
+.player-one-goal {
+  background-color: #0f0;
+}
+.player-two-goal {
+  background-color: #00f;
 }

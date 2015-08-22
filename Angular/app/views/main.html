@@ -1,10 +1,19 @@
 <div id="hud">
   <a ng-click="startGame()" href="#/">New Game</a>
   <div ng-if="gameInProgress">Player {{currentPlayer}}'s turn</div>
+  <div ng-if="gameInProgress">Player 1 Score: {{playerOneScore}}</div>
+  <div ng-if="gameInProgress">Player 2 Score: {{playerTwoScore}}</div>
+  <button ng-click="endTurn()" ng-if="gameInProgress">End Turn</button>
 </div>
-<div id="board">
-  <div class="legal-space pointer" ng-repeat="space in legalMoves" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }" ng-click="makeAMove(space)"></div>
-  <div class="player-one-space" ng-class="(currentPlayer === 1) ? 'pointer' : ''" ng-repeat="space in playerOneSpaces" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }"></div>
-  <div class="player-two-space" ng-class="(currentPlayer === 2) ? 'pointer' : ''" ng-repeat="space in playerTwoSpaces" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }"></div>
+<div id="board" ng-if="gameInProgress">>
+  <div class="legal-space pointer" ng-repeat="space in legalMoves" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px', 'z-index' : 99 }" ng-click="moveMonster(space)"></div>
+
+  <div class="player-one-goal" ng-model="playerOneGoal" ng-style="{ 'left' : playerOneGoal.coordinates[0]-20+'px', 'top' : playerOneGoal.coordinates[1]-20+'px' }"></div>
+  <div class="player-two-goal" ng-model="playerTwoGoal" ng-style="{ 'left' : playerTwoGoal.coordinates[0]-20+'px', 'top' : playerTwoGoal.coordinates[1]-20+'px' }"></div>
+
+  <div class="player-one-monster" ng-repeat="space in playerOneMonsters" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }"></div>
+  <div class="player-two-monster" ng-repeat="space in playerTwoMonsters" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }"></div>
+
+  <div class="pointer movable" ng-class="(currentPlayer === 1) ? 'player-one-movable' : 'player-two-movable'" ng-repeat="space in currentPlayerMovable" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }" ng-click="grabMonster(space)"></div>
 </div>
 
