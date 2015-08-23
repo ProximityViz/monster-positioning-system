@@ -1,4 +1,4 @@
-# Code Name: Mornington Crescent
+# Monster Positioning System
 
 Game created for Ludum Dare Jam #33: You are the Monster
 
