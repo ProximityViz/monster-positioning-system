@@ -8,7 +8,7 @@
  * Controller of the morningtonCrescentApp
  */
 angular.module('morningtonCrescentApp')
-  .controller('MainCtrl', function ($scope, GameFactory) {
+  .controller('MainCtrl', function ($scope, $timeout, GameFactory) {
 
   	var gameBoard = [];
   	$scope.gameInProgress = false;
@@ -43,6 +43,30 @@ angular.module('morningtonCrescentApp')
   		}
   	};
 
+    var aiTakePiece = function(piece) {
+      console.log(piece);
+      $scope.grabMonster(piece);
+      console.log($scope.legalMoves);
+
+      var randomMove = $scope.legalMoves[Math.floor(Math.random() * $scope.legalMoves.length)];
+      console.log(randomMove);
+      aiMovePiece(randomMove);
+    };
+
+    var aiMovePiece = function(space) {
+      console.log("move piece");
+      $scope.moveMonster(space);
+    };
+
+    var takeAITurn = function() {
+      for (var i = $scope.currentPlayerMovable.length; i--; ) {
+        console.log("current movable");
+        console.log($scope.currentPlayerMovable);
+        var pieceToMove = $scope.currentPlayerMovable[i];
+        aiTakePiece(pieceToMove);
+      };
+    };
+
     $scope.grabMonster = function(space) {
       var audio = new Audio('../sounds/pick-up-piece.wav');
       audio.play();
@@ -66,6 +90,7 @@ angular.module('morningtonCrescentApp')
     };
 
     $scope.moveMonster = function(space) {
+      console.log("move monster");
       var audio = new Audio('../sounds/place-piece.wav');
       audio.play();
       // maybe double-check that move is valid?
@@ -88,6 +113,7 @@ angular.module('morningtonCrescentApp')
           console.log("score");
           GameFactory.playerScored(space);
         } else {
+          console.log("adding monster to array");
           $scope.playerTwoMonsters.push(space);
         }
       }
@@ -119,8 +145,14 @@ angular.module('morningtonCrescentApp')
         $scope.currentPlayerMovable = $scope.playerOneMonsters;
         $scope.playerOneMonsters = [];
       } else if ($scope.currentPlayer === 2) {
+        console.log("player 2 turn begins");
         $scope.currentPlayerMovable = $scope.playerTwoMonsters;
         $scope.playerTwoMonsters = [];
+        
+        // timeout
+        $timeout(function() {
+          takeAITurn();
+        }, 3000);
       }
     };
 
@@ -128,6 +160,7 @@ angular.module('morningtonCrescentApp')
       $scope.turnInProgress = false;
       GameFactory.changeTurn();
       $scope.currentPlayer = GameFactory.getCurrentPlayer();
+      console.log("player for next turn is: " + $scope.currentPlayer);
       drawSpaces();
       startTurn();
     };
