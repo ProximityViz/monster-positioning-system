@@ -145,8 +145,7 @@ angular.module('morningtonCrescentApp')
 
   	$scope.startGame = function() {
   		console.log("start");
-      $scope.playerOneScore = 0;
-      $scope.playerTwoScore = 0;
+      $scope.playerOneScore = GameFactory.getScore();
   		GameFactory.startNewGame();
   		$scope.gameInProgress = true;
   		$scope.currentPlayer = GameFactory.getCurrentPlayer();
