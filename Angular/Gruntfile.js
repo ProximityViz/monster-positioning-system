@@ -437,7 +437,7 @@ module.exports = function (grunt) {
     },
     pages: {
       options: {
-        remote: 'git@github.com:ProximityViz/monster-positioning-system.git',
+        remote: 'https://github.com/ProximityViz/monster-positioning-system.git',
         branch: 'gh-pages'
       }
     },
