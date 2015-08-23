@@ -41,8 +41,19 @@ angular.module('morningtonCrescentApp')
 
     var aiTakePiece = function(piece) {
       $scope.grabMonster(piece);
-      var randomMove = $scope.legalMoves[Math.floor(Math.random() * $scope.legalMoves.length)];
-      aiMovePiece(randomMove);
+      if ($scope.legalMoves.length !== 0) {
+        var randomMove = $scope.legalMoves[Math.floor(Math.random() * $scope.legalMoves.length)];
+        aiMovePiece(randomMove);
+      } else { // no legal moves, so keep AI from trying to move it
+        var grabbedIndex = $scope.currentPlayerMovable.indexOf(grabbedMonster);
+        if (grabbedIndex > -1) {
+          $scope.currentPlayerMovable.splice(grabbedIndex, 1);
+        }
+        // if there are no movable monsters left, endTurn()
+        if ($scope.currentPlayerMovable.length <= 0) {
+          $scope.endTurn();
+        }
+      }
     };
 
     var aiMovePiece = function(space) {
@@ -57,7 +68,7 @@ angular.module('morningtonCrescentApp')
     };
 
     $scope.grabMonster = function(space) {
-      var audio = new Audio('../sounds/pick-up-piece.wav');
+      var audio = new Audio('sounds/pick-up-piece.wav');
       audio.play();
 
       $scope.legalMoves = [];
@@ -79,7 +90,7 @@ angular.module('morningtonCrescentApp')
     };
 
     $scope.moveMonster = function(space) {
-      var audio = new Audio('../sounds/place-piece.wav');
+      var audio = new Audio('sounds/place-piece.wav');
       audio.play();
       // maybe double-check that move is valid?
 
@@ -87,7 +98,7 @@ angular.module('morningtonCrescentApp')
       // also check for goal
       if ($scope.currentPlayer === 1) {
         if (space.player === 'p1goal') {
-          var audio = new Audio('../sounds/portal.wav');
+          var audio = new Audio('sounds/portal.wav');
           audio.play();
           console.log("score");
           GameFactory.playerScored(space);
