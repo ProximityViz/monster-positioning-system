@@ -9,14 +9,10 @@ angular.module('morningtonCrescentApp.factories', [])
 	var gameBoard = [];
 	var currentPlayer = 0;
 	var playerOneScore = 0;
-	var playerTwoScore = 0;
 
-	var createGoals = function() {		
-		currentPlayer = 2;
-		gameBoard[Math.floor(Math.random() * gameBoard.length)].player = 'p2goal';
+	var createGoals = function() {
 		currentPlayer = 1;
-		var openSpaces = getOpenSpaces();
-		openSpaces[Math.floor(Math.random() * openSpaces.length)].player = 'p1goal';
+		gameBoard[Math.floor(Math.random() * gameBoard.length)].player = 'p1goal';
 	};
 
 	var startNewGame = function() {
@@ -49,35 +45,6 @@ angular.module('morningtonCrescentApp.factories', [])
 		return playerMonsters;
 	};
 
-	// var getCurrentLegalMoves = function() {
-	// 	var legalMoves = [];
-	// 	// get spaces adjacent to one (or more) of the player's monsters
-	// 	var playerMonsters = getCurrentPlayersMonsters();
-	// 	var adjacentToMonster = [];
-	// 	for (var i = 0; i < playerMonsters.length; i++) {
-	// 		var monster = playerMonsters[i];
-	// 		for (var j = 0; j < monster.adjacent.length; j++) {
-	// 			var spaceAdjacentToMonster = monster.adjacent[j];
-	// 			// only add each space once
-	// 			if (adjacentToMonster.indexOf(spaceAdjacentToMonster) === -1) {
-	// 				adjacentToMonster.push(spaceAdjacentToMonster);
-	// 			}
-	// 		}
-	// 	}
-	// 	// see if those spaces are open
-	// 	for (var i = 0; i < adjacentToMonster.length; i++) {
-	// 		var spaceAdjacentToMonster = adjacentToMonster[i];
-	// 		// there must be a better way to find a key:value pair
-	// 		for (var j = 0; j < gameBoard.length; j++) {
-	// 			if (gameBoard[j].id === spaceAdjacentToMonster && gameBoard[j].player !== currentPlayer) {
-	// 				legalMoves.push(gameBoard[j]);
-	// 			}
-	// 		}
-	// 	}
-
-	// 	return legalMoves;
-	// };
-
 	var placeRandomPieceForCurrentPlayer = function() {
 		var openSpaces = getOpenSpaces();
 		var randomSpace = openSpaces[Math.floor(Math.random() * openSpaces.length)];
@@ -107,26 +74,13 @@ angular.module('morningtonCrescentApp.factories', [])
 	};
 
 	var playerScored = function(space) {
-		if (currentPlayer === 1) {
-			playerOneScore++;
-			// find space on game board and turn it back to the goal
-			for (var i = 0; i < gameBoard.length; i++) {
-				if (gameBoard[i].id === space.id) {
-					gameBoard[i].player = 'p1goal';
-				}
-			};
-		} else if (currentPlayer === 2) {
-			playerTwoScore++;
-			for (var i = 0; i < gameBoard.length; i++) {
-				if (gameBoard[i].id === space.id) {
-					gameBoard[i].player = 'p2goal';
-				}
-			};
+		playerOneScore++;
+		// find space on game board and turn it back to the goal
+		for (var i = 0; i < gameBoard.length; i++) {
+			if (gameBoard[i].id === space.id) {
+				gameBoard[i].player = 'p1goal';
+			}
 		}
-	};
-
-	var getScores = function() {
-		return {'player1': playerOneScore, 'player2': playerTwoScore};
 	};
 
 	var checkForWinOrStalemate = function() {
@@ -146,7 +100,9 @@ angular.module('morningtonCrescentApp.factories', [])
 		placeRandomPieceForCurrentPlayer: placeRandomPieceForCurrentPlayer,
 		moveMonsterFromTo: moveMonsterFromTo,
 		playerScored: playerScored,
-		getScores: getScores,
+		getScore: function() {
+			return playerOneScore;
+		},
 		changeTurn: changeTurn
 	};
 

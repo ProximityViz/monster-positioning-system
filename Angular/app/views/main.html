@@ -18,7 +18,7 @@
   <div class="player-one-monster" ng-repeat="space in playerOneMonsters" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }"></div>
   <div class="player-two-monster" ng-repeat="space in playerTwoMonsters" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }"></div>
 
-  <div class="pointer movable bounce animated infinite" ng-class="(currentPlayer === 1) ? 'player-one-movable' : 'player-two-movable'" ng-repeat="space in currentPlayerMovable" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }" ng-click="grabMonster(space)">
+  <div class="pointer movable" ng-class="(currentPlayer === 1) ? 'player-one-movable bounce animated infinite' : 'player-two-movable'" ng-repeat="space in currentPlayerMovable" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }" ng-click="grabMonster(space)">
   </div>
 </div>
 

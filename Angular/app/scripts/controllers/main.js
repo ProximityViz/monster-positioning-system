@@ -19,10 +19,8 @@ angular.module('morningtonCrescentApp')
   	$scope.playerOneMonsters = [];
   	$scope.playerTwoMonsters = [];
     $scope.playerOneGoal = {};
-    $scope.playerTwoGoal = {};
   	$scope.legalMoves = []; // where you can drop a monster
     $scope.playerOneScore = 0;
-    $scope.playerTwoScore = 0;
 
   	var drawSpaces = function() {
 	  	$scope.playerOneMonsters = [];
@@ -37,34 +35,25 @@ angular.module('morningtonCrescentApp')
   				$scope.playerTwoMonsters.push(space);
   			} else if (space.player === 'p1goal') {
           $scope.playerOneGoal = space;
-        } else if (space.player === 'p2goal') {
-          $scope.playerTwoGoal = space;
         }
   		}
   	};
 
     var aiTakePiece = function(piece) {
-      console.log(piece);
       $scope.grabMonster(piece);
-      console.log($scope.legalMoves);
-
       var randomMove = $scope.legalMoves[Math.floor(Math.random() * $scope.legalMoves.length)];
-      console.log(randomMove);
       aiMovePiece(randomMove);
     };
 
     var aiMovePiece = function(space) {
-      console.log("move piece");
       $scope.moveMonster(space);
     };
 
     var takeAITurn = function() {
       for (var i = $scope.currentPlayerMovable.length; i--; ) {
-        console.log("current movable");
-        console.log($scope.currentPlayerMovable);
         var pieceToMove = $scope.currentPlayerMovable[i];
         aiTakePiece(pieceToMove);
-      };
+      }
     };
 
     $scope.grabMonster = function(space) {
@@ -90,7 +79,6 @@ angular.module('morningtonCrescentApp')
     };
 
     $scope.moveMonster = function(space) {
-      console.log("move monster");
       var audio = new Audio('../sounds/place-piece.wav');
       audio.play();
       // maybe double-check that move is valid?
@@ -98,7 +86,7 @@ angular.module('morningtonCrescentApp')
       // push monster to playerOneMonsters or playerTwoMonsters
       // also check for goal
       if ($scope.currentPlayer === 1) {
-        if (space.player == 'p1goal') {
+        if (space.player === 'p1goal') {
           var audio = new Audio('../sounds/portal.wav');
           audio.play();
           console.log("score");
@@ -107,18 +95,9 @@ angular.module('morningtonCrescentApp')
           $scope.playerOneMonsters.push(space);
         }
       } else if ($scope.currentPlayer === 2) {
-        if (space.player == 'p2goal') {
-          var audio = new Audio('../sounds/portal.wav');
-          audio.play();
-          console.log("score");
-          GameFactory.playerScored(space);
-        } else {
-          console.log("adding monster to array");
-          $scope.playerTwoMonsters.push(space);
-        }
+        $scope.playerTwoMonsters.push(space);
       }
-      $scope.playerOneScore = GameFactory.getScores().player1;
-      $scope.playerTwoScore = GameFactory.getScores().player2;
+      $scope.playerOneScore = GameFactory.getScore();
 
       GameFactory.moveMonsterFromTo(grabbedMonster, space);
 
@@ -142,14 +121,14 @@ angular.module('morningtonCrescentApp')
       // maybe display "end turn" button?
       $scope.turnInProgress = true;
       if ($scope.currentPlayer === 1) {
+        console.log("player 1 turn begins");
         $scope.currentPlayerMovable = $scope.playerOneMonsters;
         $scope.playerOneMonsters = [];
       } else if ($scope.currentPlayer === 2) {
         console.log("player 2 turn begins");
         $scope.currentPlayerMovable = $scope.playerTwoMonsters;
         $scope.playerTwoMonsters = [];
-        
-        // timeout
+
         $timeout(function() {
           takeAITurn();
         }, 3000);
@@ -160,7 +139,6 @@ angular.module('morningtonCrescentApp')
       $scope.turnInProgress = false;
       GameFactory.changeTurn();
       $scope.currentPlayer = GameFactory.getCurrentPlayer();
-      console.log("player for next turn is: " + $scope.currentPlayer);
       drawSpaces();
       startTurn();
     };
