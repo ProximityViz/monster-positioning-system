@@ -1,9 +1,8 @@
 <div id="hud">
   <div class="hud-item pointer" ng-click="startGame(); done = true;" href="#/">New Game</div>
-  <div class="hud-item" ng-if="gameInProgress">Player {{currentPlayer}}'s Turn</div>
+  <div class="hud-item" ng-if="gameInProgress" ng-bind="currentPlayer === 1 ? 'Your Turn' : 'AI\'s Turn'"></div>
   <div class="hud-item" ng-if="gameInProgress">
-    Player 1 Score: {{playerOneScore}}<br>
-    Player 2 Score: {{playerTwoScore}}
+    Your Score: {{playerOneScore}}
   </div>
   <div class="hud-item pointer" ng-click="endTurn()" ng-if="gameInProgress">End Turn</div>
 </div>
@@ -13,7 +12,6 @@
   <div class="legal-space pointer" ng-repeat="space in legalMoves" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px', 'z-index' : 99 }" ng-click="moveMonster(space)"></div>
 
   <div title="Portal" class="player-one-goal pulse animated infinite" ng-model="playerOneGoal" ng-style="{ 'left' : playerOneGoal.coordinates[0]-20+'px', 'top' : playerOneGoal.coordinates[1]-30+'px' }"></div>
-  <div class="player-two-goal" ng-model="playerTwoGoal" ng-style="{ 'left' : playerTwoGoal.coordinates[0]-20+'px', 'top' : playerTwoGoal.coordinates[1]-20+'px' }"></div>
 
   <div class="player-one-monster" ng-repeat="space in playerOneMonsters" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }"></div>
   <div class="player-two-monster" ng-repeat="space in playerTwoMonsters" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px' }"></div>
