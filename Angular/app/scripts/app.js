@@ -13,6 +13,7 @@ angular
     'morningtonCrescentApp.factories',
     'ngAnimate',
     'ngCookies',
+    'ngMaterial',
     'ngResource',
     'ngRoute',
     'ngSanitize',
