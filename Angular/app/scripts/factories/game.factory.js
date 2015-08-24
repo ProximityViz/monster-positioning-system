@@ -58,10 +58,12 @@ angular.module('morningtonCrescentApp.factories', [])
 				gameBoard[i].player = 0;
 			}
 			if (gameBoard[i].id === to.id) {
-				gameBoard[i].player = currentPlayer;
+				// check for goal
+				if (gameBoard[i].player !== 'p1goal') {
+					gameBoard[i].player = currentPlayer;
+				}
 			}
 		}
-		// check for goal
 	};
 
 	var changeTurn = function() {
@@ -84,8 +86,11 @@ angular.module('morningtonCrescentApp.factories', [])
 		}
 	};
 
-	var checkForWinOrStalemate = function() {
-
+	var checkForWin = function() {
+		if (playerOneScore === 5) {
+			return true;
+		}
+		return false;
 	};
 
 	return {
@@ -104,7 +109,8 @@ angular.module('morningtonCrescentApp.factories', [])
 		getScore: function() {
 			return playerOneScore;
 		},
-		changeTurn: changeTurn
+		changeTurn: changeTurn,
+		checkForWin: checkForWin
 	};
 
 });

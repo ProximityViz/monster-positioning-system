@@ -5,17 +5,53 @@ body {
   margin: 0;
 }
 
-#intro{
+#intro, #won {
   position: absolute;
   top: 100px;
   left: 0;
   bottom: 0;
   right: 0;
   background-color: #fff;
-  background: url("../images/intro.png") no-repeat;
   background-size: contain;
   background-position: center center;
   z-index: 10000;
+}
+
+#intro {
+  background: url("../images/intro.png") no-repeat;
+}
+
+#won {
+  font-size: 40pt;
+  line-height: 60pt;
+  height: 100%;
+  .won-text {
+    padding-top: 100px;
+    color: #154400;
+    height: 200px;
+    vertical-align: middle;
+    text-align: center;
+  }
+  .won-items {
+    position: abolute;
+    display: table;
+    top: 200px;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    .won-item {
+      font-size: 40pt;
+      height: 200px;
+      width: 50%;
+      top: 50%;
+      vertical-align: middle;
+      text-align: center;
+      color: #4DFF00;
+      display: table-cell;
+      cursor: pointer;
+    }
+  }
 }
 
 #hud {

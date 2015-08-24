@@ -21,6 +21,7 @@ angular.module('morningtonCrescentApp')
     $scope.playerOneGoal = {};
   	$scope.legalMoves = []; // where you can drop a monster
     $scope.playerOneScore = 0;
+    $scope.justWonGame = false;
 
   	var drawSpaces = function() {
 	  	$scope.playerOneMonsters = [];
@@ -102,6 +103,7 @@ angular.module('morningtonCrescentApp')
           audio.play();
           console.log("score");
           GameFactory.playerScored(space);
+          $scope.justWonGame = GameFactory.checkForWin();
         } else {
           $scope.playerOneMonsters.push(space);
         }

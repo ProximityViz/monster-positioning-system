@@ -8,6 +8,20 @@
 </div>
 <div id="intro" ng-show="!done" ng-click="done = !done; startGame();">
 </div>
+<div id="won" ng-show="justWonGame" ng-click="justWonGame = false">
+  <div class="won-text">
+    You won! The monsters take a moment from their viciousness to thank you :)
+    <br>What would you like to do?
+  </div>
+  <div class="won-items">
+    <div class="won-item">
+      Continue
+    </div>
+    <div class="won-item" ng-click="startGame()">
+      Restart
+  </div>
+  </div>
+</div>
 <div id="board" ng-if="gameInProgress">
   <div class="legal-space pointer" ng-repeat="space in legalMoves" ng-style="{ 'left' : space.coordinates[0]-20+'px', 'top' : space.coordinates[1]-20+'px', 'z-index' : 99 }" ng-click="moveMonster(space)"></div>
 
